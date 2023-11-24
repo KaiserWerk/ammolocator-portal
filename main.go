@@ -36,7 +36,7 @@ func main() {
 
 	headers := []string{
 		"URL",
-		"Image",
+		//"Image",
 		"Retailer",
 		"Brand",
 		"Product Name",
@@ -52,7 +52,7 @@ func main() {
 
 		record := []string{
 			v.URL,
-			v.Image,
+			//v.Image,
 			v.Retailer,
 			v.Brand,
 			v.ProductName,

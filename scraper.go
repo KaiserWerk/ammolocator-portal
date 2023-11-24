@@ -7,7 +7,7 @@ import (
 )
 
 func getFrankoniaProducts() []Product {
-
+	const baseUrl = "https://www.frankonia.de"
 	urls := []string{
 		"https://www.frankonia.de/schiesssport/munition/kk-patronen/Artikel.html",
 		"https://www.frankonia.de/schiesssport/munition/kurzwaffenpatronen/Artikel.html",
@@ -25,7 +25,7 @@ func getFrankoniaProducts() []Product {
 	c.OnHTML("div.fr-article-tile.fr-article-tile--square", func(e *colly.HTMLElement) {
 		p := Product{}
 
-		p.URL = e.ChildAttr("a.fr-article-tile__image-link", "href")
+		p.URL = baseUrl + e.ChildAttr("a.fr-article-tile__image-link", "href")
 		p.Image = e.ChildAttr("img.fr-article-tile__image", "src")
 		p.Retailer = "Frankonia"
 		p.Brand = e.ChildText("div.fr-article-tile__brand")

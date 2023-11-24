@@ -1,9 +1,14 @@
 package main
 
 import (
+	"regexp"
 	"strconv"
 	"strings"
 )
+
+var shutgunRegex1 = regexp.MustCompile("[0-9]{2}/[0-9]{2}")
+var shutgunRegex2 = regexp.MustCompile("[0-9]{2}/[0-9]{2},[0-9]")
+var shutgunRegex3 = regexp.MustCompile("[0-9]{2}/[0-9]{2}.[0-9]")
 
 func detectCaliber(input string) string {
 	input = strings.ToLower(input)
@@ -37,6 +42,12 @@ func detectCaliber(input string) string {
 		strings.Contains(input, "6.5cr") || strings.Contains(input, "6.5creedmoor") ||
 		strings.Contains(input, "6.5 cr") || strings.Contains(input, "6.5 creedmoor") {
 		return "6,5 Creedmoor"
+	} else if s := shutgunRegex1.FindString(input); s != "" {
+		return s
+	} else if s := shutgunRegex2.FindString(input); s != "" {
+		return s
+	} else if s := shutgunRegex3.FindString(input); s != "" {
+		return s
 	}
 
 	return "n/a"
