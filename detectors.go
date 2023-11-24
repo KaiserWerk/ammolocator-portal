@@ -40,7 +40,9 @@ func detectCaliber(input string) string {
 	} else if strings.Contains(input, "6,5cr") || strings.Contains(input, "6,5creedmoor") ||
 		strings.Contains(input, "6,5 cr") || strings.Contains(input, "6,5 creedmoor") ||
 		strings.Contains(input, "6.5cr") || strings.Contains(input, "6.5creedmoor") ||
-		strings.Contains(input, "6.5 cr") || strings.Contains(input, "6.5 creedmoor") {
+		strings.Contains(input, "6.5 cr") || strings.Contains(input, "6.5 creedmoor") ||
+		strings.Contains(input, "6.5mmcr") || strings.Contains(input, "6.5mm creedmoor") ||
+		strings.Contains(input, "6,5mmcr") || strings.Contains(input, "6,5mm creedmoor") {
 		return "6,5 Creedmoor"
 	} else if s := shutgunRegex1.FindString(input); s != "" {
 		return s

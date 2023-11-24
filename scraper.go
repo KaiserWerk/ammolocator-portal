@@ -1,10 +1,62 @@
 package main
 
 import (
+	"context"
 	"fmt"
+	"github.com/chromedp/cdproto/cdp"
+	"github.com/chromedp/chromedp"
 	"github.com/gocolly/colly"
+	"log"
 	"strings"
 )
+
+func getArms24Products() []Product {
+	products := make([]Product, 0)
+
+	ctx, cancel := chromedp.NewContext(
+		context.Background(),
+		chromedp.WithLogf(log.Printf),
+	)
+	defer cancel()
+
+	urls := []string{
+		"https://www.arms24.com/kleinkaliber-munition",
+		"https://www.arms24.com/revolver-munition",
+		"https://www.arms24.com/pistolen-munition",
+		"https://www.arms24.com/schrotpatronen",
+		"https://www.arms24.com/flintenlaufgeschosse",
+		"https://www.arms24.com/buechsen-munition",
+	}
+
+	for _, u := range urls {
+		var nodes []*cdp.Node
+		chromedp.Run(ctx,
+			chromedp.Navigate(u),
+			chromedp.Nodes("div.product--box.box--minimal", &nodes, chromedp.ByQueryAll),
+		)
+
+		var url, name, price string
+		for _, node := range nodes {
+			chromedp.Run(ctx,
+				chromedp.AttributeValue("a.product--image", "href", &url, nil, chromedp.ByQuery, chromedp.FromNode(node)),
+				chromedp.Text("a.product--title.is--standard", &name, chromedp.ByQuery, chromedp.FromNode(node)),
+				chromedp.Text("span.price--default.is--nowrap", &price, chromedp.ByQuery, chromedp.FromNode(node)),
+			)
+
+			p := Product{}
+			p.URL = url
+			p.Image = ""
+			p.Retailer = "Arms24"
+			p.ProductName = strings.TrimSpace(name)
+			p.Caliber = detectCaliber(name)
+			p.Price = detectPrice(price)
+
+			products = append(products, p)
+		}
+	}
+
+	return products
+}
 
 func getFrankoniaProducts() []Product {
 	const baseUrl = "https://www.frankonia.de"

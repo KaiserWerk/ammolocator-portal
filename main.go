@@ -30,6 +30,7 @@ func main() {
 	defer file.Close()
 
 	allProducts = append(allProducts, getFrankoniaProducts()...)
+	allProducts = append(allProducts, getArms24Products()...)
 
 	writer := csv.NewWriter(file)
 	writer.Comma = ';'
