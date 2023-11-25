@@ -10,6 +10,82 @@ var shutgunRegex1 = regexp.MustCompile("[0-9]{2}/[0-9]{2}")
 var shutgunRegex2 = regexp.MustCompile("[0-9]{2}/[0-9]{2},[0-9]")
 var shutgunRegex3 = regexp.MustCompile("[0-9]{2}/[0-9]{2}.[0-9]")
 
+func detectBrand(input string) string {
+	input = strings.ToLower(input)
+	if strings.Contains(input, "s&b") || strings.Contains(input, "sellier&bellot") ||
+		strings.Contains(input, "sellier & bellot") || strings.Contains(input, "s & b") {
+		return "Sellier & Bellot"
+	} else if strings.Contains(input, "geco") {
+		return "Geco"
+	} else if strings.Contains(input, "hornady") {
+		return "Hornady"
+	} else if strings.Contains(input, "prvi partizan") {
+		return "Prvi Partizan"
+	} else if strings.Contains(input, "aguila") {
+		return "Aguila"
+	} else if strings.Contains(input, "maxxtech") {
+		return "MaxxTech"
+	} else if strings.Contains(input, "speer") {
+		return "Speer"
+	} else if strings.Contains(input, "fiocchi") {
+		return "Fiocchi"
+	} else if strings.Contains(input, "topshot") {
+		return "TopShot"
+	} else if strings.Contains(input, "winchester") {
+		return "Winchester"
+	} else if strings.Contains(input, "magtech") {
+		return "MagTech"
+	} else if strings.Contains(input, "barnes") {
+		return "Barnes"
+	} else if strings.Contains(input, "ggg") {
+		return "GGG"
+	} else if strings.Contains(input, "stv") {
+		return "STV"
+	} else if strings.Contains(input, "barnaul") {
+		return "Barnaul"
+	} else if strings.Contains(input, "cci") {
+		return "CCI"
+	} else if strings.Contains(input, "blazer") {
+		return "Blazer"
+	} else if strings.Contains(input, "remington") {
+		return "Remington"
+	} else if strings.Contains(input, "federal premium") {
+		return "Federal Premium"
+	} else if strings.Contains(input, "eley") {
+		return "Eley"
+	} else if strings.Contains(input, "lapua") {
+		return "Lapua"
+	} else if strings.Contains(input, "norma") {
+		return "Norma"
+	} else if strings.Contains(input, "rws") {
+		return "RWK"
+	} else if strings.Contains(input, "sk") {
+		return "SK"
+	} else if strings.Contains(input, "bioammo") {
+		return "BioAmmo"
+	} else if strings.Contains(input, "rottweil") {
+		return "Rottweil"
+	} else if strings.Contains(input, "zink") {
+		return "Zink"
+	} else if strings.Contains(input, "brenneke") {
+		return "Brenneke"
+	} else if strings.Contains(input, "ddupleks") {
+		return "DDupleks"
+	} else if strings.Contains(input, "browning") {
+		return "Browning"
+	} else if strings.Contains(input, "nosler") {
+		return "Nosler"
+	} else if strings.Contains(input, "sako") {
+		return "Sako"
+	} else if strings.Contains(input, "swissp") {
+		return "SwissP"
+	} else if strings.Contains(input, "Weatherby") {
+		return "Weatherby"
+	}
+
+	return "n/a"
+}
+
 func detectCaliber(input string) string {
 	input = strings.ToLower(input)
 	if strings.Contains(input, "22 lfb") || strings.Contains(input, "22 lr") ||

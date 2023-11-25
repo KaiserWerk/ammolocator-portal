@@ -47,6 +47,7 @@ func getArms24Products() []Product {
 			p.URL = url
 			p.Image = ""
 			p.Retailer = "Arms24"
+			p.Brand = detectBrand(name)
 			p.ProductName = strings.TrimSpace(name)
 			p.Caliber = detectCaliber(name)
 			p.Price = detectPrice(price)
